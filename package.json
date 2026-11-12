@@ -1,0 +1,20 @@
+{
+  "name": "pulso-ultima-energia",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Videojuego indie de plataformas en Canvas 2D y JavaScript puro",
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "check": "node --check src/game.js && node --check src/audio.js && node --check src/levels.js && node --check src/scoring.js && node --check tests/e2e/bot.js && node --check tests/e2e/game.spec.js",
+    "start": "python3 -m http.server 8080",
+    "test:e2e": "playwright test",
+    "capturas": "PULSO_CAPTURAS=1 playwright test --project=chromium"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.65.0"
+  }
+}
