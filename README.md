@@ -1,107 +1,141 @@
 # ⚡ PULSO: Última Energía
 
-![Portada original de PULSO](assets/splash.png)
+![Portada de PULSO](assets/splash.png)
 
-> **Estado verificado el 11 de noviembre de 2026:** videojuego implementado localmente y sometido a pruebas de lógica e interfaz. **Publicación en GitHub Pages pendiente; no afirmar que la URL funciona hasta verificarla públicamente.**
+**Autor:** José Ramón Ibarra · **Género:** plataformas 2D, aventura y acción · **Tecnología:** HTML5, CSS3, JavaScript puro (módulos ES), Canvas 2D, `requestAnimationFrame` y Web Audio API. Sin backend, sin motor y sin dependencias CDN.
 
-**Propuesta y concepto:** José Ramón Ibarra · **Género:** plataformas 2D / acción ligera · **Tecnología:** HTML5 + CSS3 + JavaScript ES Modules + Canvas 2D + Web Audio API (sin motor, backend ni dependencias de ejecución).
+- **Jugar en línea:** <https://ramonibr.github.io/pulso-ultima-energia/>
+- **Repositorio:** <https://github.com/ramonibr/pulso-ultima-energia>
+- **Tablero Kanban:** <https://github.com/users/ramonibr/projects/9> · [Issues](https://github.com/ramonibr/pulso-ultima-energia/issues?q=is%3Aissue)
+
+> **Estado verificado el 11 de noviembre de 2026:** GitHub Pages responde HTTP 200 en la página, CSS, los cuatro módulos JS y las imágenes; la suite E2E completa (incluida una partida de los tres niveles jugada solo con teclado) pasa contra la URL pública en Chromium y WebKit. Ver [evidencias](docs/EVIDENCIAS_QA.md).
 
 ## Propuesta individual
 
-La estación espacial NÉBULA está perdiendo energía. Axel, acompañado del robot BIP, debe recuperar cristales, desactivar drones averiados con un pulso de energía y abrir las compuertas antes de que se agote el tiempo. Es un videojuego indie de estética pixel art simplificada para jugadores casuales desde 10 años, creado como caso práctico escolar. El juego no contiene violencia gráfica.
+La estación espacial **NÉBULA** perdió el control de su núcleo energético. **Axel**, un explorador con traje de rescate, debe recuperar cristales de energía, evitar trampas eléctricas y desactivar drones defectuosos con su **emisor de pulsos**. Su acompañante robótico **BIP** le explica la misión en cada sector. Propuesta completa: [docs/PROPUESTA_INDIVIDUAL.md](docs/PROPUESTA_INDIVIDUAL.md).
 
-### Objetivos de aprendizaje
+**Descripción:** juego de partidas cortas (3 sectores, 4 minutos máximo) con estética pixel art futurista en azules, turquesas y amarillos.
 
-- Programar entradas de teclado y botones táctiles, movimiento, gravedad y colisiones.
-- Implementar eventos, sprites dibujados en Canvas 2D, enemigos, coleccionables y un temporizador.
-- Calcular puntuación reproducible y evitar eventos duplicados.
-- Generar sonido y melodías originales con Web Audio API, con control de silencio.
-- Documentar el desarrollo usando GDD, Git, Issues y publicación web.
+**Objetivo del jugador:** recuperar todos los cristales de cada sector para abrir la compuerta y llegar a la salida antes de que se agote el tiempo, conservando al menos una vida.
 
-## Jugar
+**Público objetivo:** jugadores casuales desde 10 años; estudiantes y docentes que evalúan un proyecto web. Sin violencia gráfica: los drones solo se «desactivan».
 
-- **Juego en línea (pendiente de verificar/publicar):** `https://ramonibr.github.io/pulso-ultima-energia/`
-- **Repositorio (pendiente de crear/publicar):** `https://github.com/ramonibr/pulso-ultima-energia`
-- **Local:** abrir esta carpeta en un terminal y ejecutar `python3 -m http.server 8080`, luego visitar `http://localhost:8080/`. Se requiere servir los módulos ES por HTTP, no abrir `index.html` mediante `file://`.
+## Mecánicas
 
-### Controles
+1. Movimiento horizontal, salto y gravedad.
+2. Plataformas sólidas con colisiones; caer al vacío cuesta una vida.
+3. Drones que patrullan; tocar uno cuesta una vida.
+4. Disparo de pulsos de energía que desactivan drones.
+5. Cristales coleccionables (cada uno cuenta una sola vez).
+6. Escudo temporal: absorbe el siguiente golpe sin quitar vida ni puntos.
+7. Tres vidas iniciales, temporizador por nivel y puntuación en el HUD.
+8. Pantalla de inicio, pausa y reanudación, victoria y derrota (tiempo o vidas).
+9. Música por nivel y efectos sintetizados; silencio con tecla o botón.
+10. Controles táctiles básicos en pantallas pequeñas.
 
-| Acción | Teclado | Móvil / pantalla táctil |
+## Controles
+
+| Acción | Teclado | Pantalla táctil |
 | --- | --- | --- |
-| Mover | A/D o ←/→ | Botones ◀ y ▶ |
+| Mover | A / D o ← / → | Botones ◀ ▶ |
 | Saltar | W o ↑ | Botón ↑ Saltar |
-| Emitir pulso | Espacio | Botón ⚡ Pulso |
-| Pausar / reanudar | P o Esc | Botón superior Pausa |
-| Sonido | Botón superior | Botón superior |
+| Disparar pulso | Espacio | Botón ⚡ Pulso |
+| Pausa / reanudar | P (o Esc) | Botón ⏸ Pausa |
+| Activar / desactivar sonido | M | Botón 🔊 Silenciar |
 
-**Reglas:** empieza con 3 vidas. Cada cristal se recoge una vez. Al recuperar todos los cristales del sector, se abre la puerta. El escudo absorbe un golpe sin quitar vida ni puntos. Los drones se pueden desactivar. El tiempo o vidas agotadas terminan la partida. La puntuación final se muestra al concluir los tres sectores.
+## Niveles
 
-## Niveles incluidos
+| Nivel | Nombre | Cristales | Drones | Tiempo | Rasgo propio |
+| --- | --- | ---: | ---: | ---: | --- |
+| 1 | Muelle de Carga | 3 | 2 | 90 s | Tutorial: plataformas bajas y huecos |
+| 2 | Conductos Eléctricos | 4 | 3 | 80 s | Zona eléctrica y dron en plataforma alta |
+| 3 | Cámara del Núcleo | 5 | 4 | 70 s | Dos zonas eléctricas y dron junto a la salida |
 
-| Nivel | Ubicación | Cristales | Drones | Tiempo |
-| --- | --- | ---: | ---: | ---: |
-| 1 | Muelle de Carga | 3 | 2 | 90 s |
-| 2 | Conductos Eléctricos | 4 | 3 | 80 s |
-| 3 | Cámara del Núcleo | 5 | 4 | 70 s |
+La compuerta de salida se abre solo al recoger todos los cristales del sector. Boceto del nivel 1: [assets/mapa_nivel_1.png](assets/mapa_nivel_1.png).
 
-![Boceto del nivel 1](assets/mapa_nivel_1.png)
-
-## Fórmula de puntuación
+## Sistema de puntuación
 
 | Evento | Puntos |
 | --- | ---: |
-| Cristal recogido por primera vez | +100 |
-| Dron desactivado por primera vez | +50 |
-| Finalizar un nivel | +200 |
-| Bono por tiempo | +2 por segundo entero restante al finalizar |
-| Impacto que consume vida | −25 |
+| Cristal recogido | +100 |
+| Dron desactivado | +50 |
+| Nivel completado | +200 |
+| Segundo restante al terminar un nivel | +2 |
+| Impacto recibido (pierde vida) | −25 |
 
-`SCORE = max(0, 100*C + 50*D + 200*N + 2*T - 25*H)`.
+```
+score = max(0, 100*C + 50*D + 200*N + 2*T - 25*H)
+```
 
-C = cristales únicos; D = drones únicos desactivados; N = niveles completos; T = suma de segundos enteros restantes al terminar cada nivel; H = impactos efectivos. Los identificadores de evento evitan registrar dos veces la misma gema, enemigo o nivel. Ejemplo: 3 gemas + 2 drones + 1 nivel + 40 segundos − 1 daño = `300 + 100 + 200 + 80 − 25 = 655 puntos`.
+C = cristales, D = drones desactivados, N = niveles completados, T = suma de segundos enteros restantes al terminar cada nivel, H = impactos que quitaron vida. Cada evento tiene un identificador único (`level:1:gem:0`, etc.) y `src/scoring.js` ignora duplicados. Un golpe absorbido por el escudo no suma H.
 
-## Organización del código
+Ejemplo: 3 cristales + 2 drones + 1 nivel + 40 s − 1 impacto = 300 + 100 + 200 + 80 − 25 = **655**.
+
+## Estructura del proyecto
 
 ```text
-index.html             Entrada del juego y HUD
-styles.css             Interfaz adaptable y controles
-src/game.js            Bucle Canvas, físicas, colisiones, estados, eventos
-src/levels.js          Datos y validación de los tres niveles
-src/audio.js           Música ambiental y efectos originales sintetizados
-src/scoring.js         Eventos únicos y cálculo de puntos
-tests/game.test.js     Pruebas automatizadas con Node.js
-docs/                  Propuesta, GDD, técnico, storyboard, tarjetas y guion
-assets/                Splash, mapa y arte visual
+index.html              Entrada: HUD, canvas, modal y controles táctiles
+styles.css              Interfaz adaptable (escritorio y móvil)
+src/game.js             Bucle requestAnimationFrame, física, colisiones, estados, dibujo
+src/levels.js           Datos declarativos de los 3 niveles y validación
+src/scoring.js          Eventos únicos y fórmula de puntuación
+src/audio.js            Música y efectos sintetizados con Web Audio API
+tests/game.test.js      Pruebas unitarias (node:test)
+tests/e2e/              Pruebas en navegador (Playwright) y bot que juega con teclado
+docs/                   Propuesta, GDD, documento técnico, guion, evidencias y capturas
+assets/                 Splash, storyboard, mapa del nivel 1 y favicon
 ```
 
-## Pruebas y publicación
+## Jugar localmente
 
-**Requisitos de pruebas:** Node.js 18 o superior y navegador moderno. El juego en producción no necesita Node ni instalación de paquetes.
+Los módulos ES requieren servirse por HTTP (no abrir con `file://`):
 
 ```bash
-npm run check
-npm test
+git clone https://github.com/ramonibr/pulso-ultima-energia.git
+cd pulso-ultima-energia
 python3 -m http.server 8080
+# abrir http://localhost:8080/
 ```
 
-Se han ejecutado cinco pruebas automatizadas correctas sobre niveles y puntaje; además, se verificaron visualmente menú, partida y pausa en Chromium mediante una versión de inspección con módulos reunidos, sin errores de JavaScript. Falta confirmar el recorrido manual completo, las pruebas en GitHub Pages y los controles en dispositivos reales. Ver [`docs/EVIDENCIAS_QA.md`](docs/EVIDENCIAS_QA.md).
+## Pruebas
 
-**GitHub Pages:** después de subir los archivos a la rama `main`, entrar en `Settings → Pages → Build and deployment → Deploy from a branch → main → /(root) → Save`; confirmar la URL desde otro navegador. GitHub documenta esta publicación estática en <https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site>.
+Requiere Node.js 18+ (solo para pruebas; el juego no necesita instalación).
 
-## Documentación del proyecto
+```bash
+npm install                 # instala Playwright (solo desarrollo)
+npx playwright install chromium webkit
+npm run check               # sintaxis de todos los módulos
+npm test                    # 5 pruebas unitarias de puntuación y niveles
+npm run test:e2e            # 8 pruebas × 2 navegadores (Chromium y WebKit)
+PULSO_URL=https://ramonibr.github.io/pulso-ultima-energia/ npm run test:e2e   # contra GitHub Pages
+npm run capturas            # regenera docs/capturas/*.png
+```
 
-- [Propuesta individual](docs/PROPUESTA_INDIVIDUAL.md) · [versión Word](docs/PROPUESTA_INDIVIDUAL.docx)
-- [Documento de Diseño de Juego — GDD](docs/GDD.md) · [versión Word](docs/GDD.docx)
-- [Documento técnico de hardware y software](docs/DOCUMENTO_TECNICO.md) · [versión Word](docs/DOCUMENTO_TECNICO.docx)
-- [Storyboard y mapa](assets/storyboard.png)
-- [Tarjetas de trabajo e Issues](docs/TARJETAS_GITHUB.md)
-- [Guion para el video explicativo](docs/GUION_VIDEO.md)
-- [Evidencias de pruebas](docs/EVIDENCIAS_QA.md)
+La prueba E2E principal juega los tres niveles **usando solo eventos de teclado**: un bot lee el estado del juego para decidir, pero nunca mueve al jugador ni altera contadores. El reloj del navegador se controla con `page.clock` para que la partida sea reproducible.
 
-## Créditos y derechos
+## Capturas reales
 
-Concepto del juego: **José Ramón Ibarra**. Integrantes adicionales y fotografías de la portada: **por completar únicamente con datos y fotos reales autorizados**. Programación y materiales preparados con asistencia técnica de herramientas de IA; revisar y comprender el trabajo antes de presentarlo. Arte de splash generado para este concepto; diseños, efectos y melodías originales sintetizados. No se incorporaron recursos musicales comerciales.
+| Inicio | Nivel 1 | Nivel 2 |
+| --- | --- | --- |
+| ![Inicio](docs/capturas/inicio.png) | ![Nivel 1](docs/capturas/nivel-1.png) | ![Nivel 2](docs/capturas/nivel-2.png) |
+| **Nivel 3** | **Victoria** | **Móvil (390 px)** |
+| ![Nivel 3](docs/capturas/nivel-3.png) | ![Victoria](docs/capturas/victoria.png) | ![Móvil](docs/capturas/movil.png) |
 
-## Fuentes técnicas
+## Documentación
 
-[MDN Canvas 2D](https://developer.mozilla.org/es/docs/Web/API/Canvas_API) · [MDN Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API) · [GitHub Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site) · [GitHub CLI](https://cli.github.com/manual/gh_repo_create)
+- [Propuesta individual](docs/PROPUESTA_INDIVIDUAL.md) · [Word](docs/PROPUESTA_INDIVIDUAL.docx)
+- [GDD — Documento de Diseño de Juego](docs/GDD.md) · [Word](docs/GDD.docx)
+- [Documento técnico](docs/DOCUMENTO_TECNICO.md) · [Word](docs/DOCUMENTO_TECNICO.docx)
+- [Evidencias de QA](docs/EVIDENCIAS_QA.md)
+- [Tarjetas de GitHub](docs/TARJETAS_GITHUB.md)
+- [Guion del video explicativo](docs/GUION_VIDEO.md)
+
+## Créditos
+
+- Concepto, propuesta y dirección: **José Ramón Ibarra**.
+- Integrantes adicionales y fotografías: por completar con datos reales y autorizados (ver GDD).
+- Programación, pruebas y documentación con apoyo de herramientas de IA, revisadas por el autor.
+- Gráficos del juego dibujados por código en Canvas; splash, storyboard y mapa conceptual generados para este proyecto.
+- Música y efectos: originales, sintetizados en tiempo real con Web Audio API. Sin recursos comerciales.
+
+Fuentes técnicas: [MDN Canvas API](https://developer.mozilla.org/es/docs/Web/API/Canvas_API) · [MDN Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API) · [MDN requestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/Window/requestAnimationFrame) · [GitHub Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site) · [Playwright](https://playwright.dev/docs/intro)

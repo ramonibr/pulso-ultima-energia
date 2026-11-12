@@ -1,102 +1,24 @@
-# Tarjetas propuestas para GitHub Issues / Project
+# Tarjetas de GitHub (Issues y tablero Kanban)
 
-**Estado:** planificación. Estas tarjetas están preparadas, pero no se han publicado en GitHub.  
-**Tablero sugerido:** Pendiente → En curso → En revisión → Terminado.  
-**Regla:** asignar responsables reales; no inventar integrantes o avances.
+**Tablero:** <https://github.com/users/ramonibr/projects/9> — columnas **Pendiente**, **En curso**, **En revisión**, **Hecho**.
+**Issues:** <https://github.com/ramonibr/pulso-ultima-energia/issues?q=is%3Aissue>
 
-## PRE-01 — Definir propuesta y README
+Cada Issue tiene descripción, criterios de aceptación (checklist) y evidencia. Solo se marcaron como **Hecho** (y se cerraron) las tarjetas con resultado verificado. Estado al 11 de noviembre de 2026:
 
-**Área:** Preproducción  
-**Trabajo:** Explicar visión, público, alcance y estado; enlace a GDD.  
-**Criterio de aceptación:** Documentación visible y revisada.  
-**Responsable:** por asignar.  
-**Estado:** Pendiente.
+| # | Tarjeta | Estado | Motivo |
+| --- | --- | --- | --- |
+| [1](https://github.com/ramonibr/pulso-ultima-energia/issues/1) | Concepto y requerimientos | Hecho | Propuesta y requerimientos documentados |
+| [2](https://github.com/ramonibr/pulso-ultima-energia/issues/2) | Diseño GDD | En curso | Faltan nombres y fotos reales de integrantes |
+| [3](https://github.com/ramonibr/pulso-ultima-energia/issues/3) | Diseño visual y personajes | Hecho | Capturas reales en `docs/capturas/` |
+| [4](https://github.com/ramonibr/pulso-ultima-energia/issues/4) | Arquitectura JavaScript | Hecho | Módulos cargan sin errores |
+| [5](https://github.com/ramonibr/pulso-ultima-energia/issues/5) | Movimiento y físicas | Hecho | Prueba E2E |
+| [6](https://github.com/ramonibr/pulso-ultima-energia/issues/6) | Mapa y plataformas | Hecho | 3 niveles superados con teclado |
+| [7](https://github.com/ramonibr/pulso-ultima-energia/issues/7) | Drones y colisiones | Hecho | Prueba E2E |
+| [8](https://github.com/ramonibr/pulso-ultima-energia/issues/8) | Coleccionables y escudo | Hecho | Prueba E2E |
+| [9](https://github.com/ramonibr/pulso-ultima-energia/issues/9) | Audio | En revisión | Falta escucha humana del sonido |
+| [10](https://github.com/ramonibr/pulso-ultima-energia/issues/10) | Puntuación y estados | Hecho | Pruebas unitarias y E2E |
+| [11](https://github.com/ramonibr/pulso-ultima-energia/issues/11) | Pruebas y correcciones | Hecho | 5 unitarias + 16 E2E en verde |
+| [12](https://github.com/ramonibr/pulso-ultima-energia/issues/12) | Publicación y documentación | Hecho | Pages HTTP 200 y E2E contra la URL pública |
+| [13](https://github.com/ramonibr/pulso-ultima-energia/issues/13) | Video explicativo | Pendiente | Lo graba el autor |
 
-## PRE-02 — Completar GDD con portada e integrantes
-
-**Área:** Preproducción  
-**Trabajo:** Incluir fotografías autorizadas y datos reales del equipo.  
-**Criterio de aceptación:** Nombres y fotos completos, sin placeholders.  
-**Responsable:** por asignar.  
-**Estado:** Pendiente.
-
-## ART-01 — Diseñar personaje y sprites
-
-**Área:** Arte  
-**Trabajo:** Sprite de Axel: quieto, caminar, salto, daño.  
-**Criterio de aceptación:** Personaje distinguible y sprites aprobados.  
-**Responsable:** por asignar.  
-**Estado:** Pendiente.
-
-## ART-02 — Diseñar plataformas, drones y cristales
-
-**Área:** Arte  
-**Trabajo:** Sprites y backgrounds del nivel 1.  
-**Criterio de aceptación:** Recursos legibles a 960x540.  
-**Responsable:** por asignar.  
-**Estado:** Pendiente.
-
-## GAME-01 — Implementar movimiento y salto
-
-**Área:** Programación  
-**Trabajo:** Teclado y gravedad, plataformas sólidas.  
-**Criterio de aceptación:** Corre y salta sin atravesar suelo.  
-**Responsable:** por asignar.  
-**Estado:** Pendiente.
-
-## GAME-02 — Implementar disparo y enemigos
-
-**Área:** Programación  
-**Trabajo:** Pulso, patrulla y detección de impactos.  
-**Criterio de aceptación:** Dron se desactiva una vez por impacto válido.  
-**Responsable:** por asignar.  
-**Estado:** Pendiente.
-
-## GAME-03 — Implementar cristales, vidas y score
-
-**Área:** Programación  
-**Trabajo:** Colección única, daño, escudo, HUD, fórmula.  
-**Criterio de aceptación:** Score coincide con pruebas de eventos.  
-**Responsable:** por asignar.  
-**Estado:** Pendiente.
-
-## GAME-04 — Construir nivel 1 y estados del juego
-
-**Área:** Programación  
-**Trabajo:** Mapa, tiempo, inicio, pausa, salida y game over.  
-**Criterio de aceptación:** Nivel 1 se puede completar y reiniciar.  
-**Responsable:** por asignar.  
-**Estado:** Pendiente.
-
-## AUDIO-01 — Crear y conectar efectos de sonido
-
-**Área:** Audio  
-**Trabajo:** SFX generados y botón de silencio.  
-**Criterio de aceptación:** Suena sólo tras interacción y respeta mute.  
-**Responsable:** por asignar.  
-**Estado:** Pendiente.
-
-## QA-01 — Ejecutar pruebas funcionales
-
-**Área:** Calidad  
-**Trabajo:** Checklist de controles, score, estados, audio.  
-**Criterio de aceptación:** Casos críticos probados y documentados.  
-**Responsable:** por asignar.  
-**Estado:** Pendiente.
-
-## DEP-01 — Publicar y probar GitHub Pages
-
-**Área:** Entrega  
-**Trabajo:** Activar Pages y probar URL desde otra sesión.  
-**Criterio de aceptación:** Juego accesible por URL pública verificada.  
-**Responsable:** por asignar.  
-**Estado:** Pendiente.
-
-## VID-01 — Grabar video explicativo
-
-**Área:** Entrega  
-**Trabajo:** Demostración y funciones de JavaScript.  
-**Criterio de aceptación:** Video breve con controles, lógica y score.  
-**Responsable:** por asignar.  
-**Estado:** Pendiente.
-
+Copia en CSV: [TARJETAS_GITHUB.csv](TARJETAS_GITHUB.csv).

@@ -1,47 +1,80 @@
-# Propuesta individual de videojuego web indie
+# Propuesta individual de videojuego
 
-**Título:** PULSO: Última Energía  
-**Proponente:** José Ramón Ibarra  
-**Fecha:** 10 de noviembre de 2026  
-**Tipo:** juego web minimalista 2D para navegador
+**Título:** PULSO: Última Energía
+**Autor:** José Ramón Ibarra
+**Fecha:** 11 de noviembre de 2026
+**Tipo:** videojuego web 2D de plataformas para navegador
 
-## Problema creativo
+## 1. Concepto
 
-Diseñar un videojuego indie que se pueda comprender rápidamente y jugar desde un navegador, sin instalación y sin infraestructura de servidor.
+La estación espacial NÉBULA perdió el control de su núcleo energético. Axel, un explorador con traje de rescate, recorre tres sectores para recuperar cristales de energía, evitar trampas eléctricas y desactivar drones defectuosos con un emisor de pulsos. Su acompañante robótico, BIP, le explica la misión. Estética pixel art futurista en azules, turquesas y amarillos.
 
-## Solución propuesta
+## 2. Objetivos
 
-Desarrollar una aventura de plataformas en una estación espacial, donde el jugador recupere energía mientras sortea peligros y desactiva drones. Se usará HTML, CSS y JavaScript con Canvas y efectos sintetizados mediante Web Audio.
+**Del proyecto**
 
-## Diferenciadores
+1. Programar un videojuego completo en JavaScript puro, sin motores ni librerías.
+2. Aplicar entrada de teclado y táctil, gravedad, colisiones, enemigos, coleccionables, temporizador y estados de juego.
+3. Implementar una puntuación reproducible y verificable con pruebas automatizadas.
+4. Generar música y efectos originales con Web Audio API.
+5. Gestionar el trabajo con Git, Issues y un tablero Kanban, y publicar con GitHub Pages.
 
-- Partidas cortas, reglas transparentes y puntuación explicable.
-- Estética pixel art con gráficos ligeros.
-- Audio de interacción sin pistas musicales externas obligatorias.
-- Publicación estática mediante GitHub Pages, una vez exista la implementación.
+**Del jugador:** recoger todos los cristales de cada sector, llegar a la salida antes de que termine el tiempo y restaurar el núcleo con la mayor puntuación posible.
 
-## Alcance mínimo viable
+## 3. Justificación
 
-Un nivel jugable con personaje, plataformas, tres cristales, dos drones, temporizador, contador de vidas, puntuación, controles, pantalla de inicio, victoria/derrota y sonidos básicos. Los otros dos niveles se planifican como una ampliación.
+Un juego de plataformas reúne en un proyecto pequeño los conceptos centrales de la programación de videojuegos: bucle de juego, física, detección de colisiones, máquina de estados, entrada del usuario y audio. Al ejecutarse en el navegador no requiere instalación, se puede compartir con un enlace y su publicación en GitHub Pages es gratuita. La puntuación con fórmula explícita permite comprobar con pruebas que las reglas se cumplen.
 
-## Fuera del alcance inicial
+## 4. Público
 
-Multijugador, servidor, cuentas, pagos, base de datos, inventario complejo y gráficos 3D.
+Jugadores casuales desde 10 años, en computadora o teléfono. Partidas cortas, controles de cuatro teclas y sin violencia gráfica.
 
-## Criterios de aceptación
+## 5. Tecnologías
 
-1. El juego abre en un navegador actual sin instalación adicional.
-2. El jugador puede desplazarse, saltar y disparar pulsos.
-3. El sistema detecta colecciones, impactos, victoria y derrota.
-4. La puntuación coincide con la fórmula documentada.
-5. Los sonidos pueden activarse y desactivarse.
-6. El repositorio incluye instrucciones y crédito de recursos.
-7. La URL de GitHub Pages se prueba manualmente antes de declarar la publicación terminada.
+| Tecnología | Uso |
+| --- | --- |
+| HTML5 | Estructura, HUD y elemento `<canvas>` |
+| CSS3 | Interfaz adaptable y controles táctiles |
+| JavaScript (módulos ES) | Lógica, física, estados y puntuación |
+| Canvas 2D + `requestAnimationFrame` | Dibujo y animación a la frecuencia de la pantalla |
+| Web Audio API | Música y efectos sintetizados |
+| Git, GitHub, GitHub Pages, GitHub Projects | Versiones, tareas y publicación |
+| Node.js (`node:test`) y Playwright | Pruebas automatizadas (solo desarrollo) |
 
-## Etapa actual
+## 6. Alcance
 
-La documentación y el juego se implementaron localmente. Se comprobaron pruebas de sintaxis y puntuación, un flujo de estados instrumentado y una inspección visual básica. **No se ha publicado ni confirmado todavía un enlace de GitHub Pages; la partida manual completa permanece pendiente.**
+**Incluido:** 3 niveles (3/4/5 cristales, 2/3/4 drones, 90/80/70 s), 3 vidas, escudo, disparo, puntuación, pantalla de inicio, pausa, victoria, derrota, música por nivel, 8 efectos, controles de teclado y táctiles, publicación web.
 
-## Actualización de ejecución (11 de noviembre de 2026)
+**Fuera de alcance:** multijugador, servidor, cuentas, tabla de récords en línea, guardado de partidas, gráficos 3D y pagos.
 
-Además del nivel básico originalmente previsto, se implementaron tres sectores para el prototipo local, el control táctil y los efectos sintetizados. El código pasa las pruebas de sintaxis y lógica; la publicación de GitHub Pages permanece pendiente y requiere confirmación externa. Esta actualización no sustituye la evaluación del docente ni las fotografías reales del equipo.
+## 7. Mecánicas
+
+1. Movimiento horizontal (A/D o flechas) y salto con gravedad (W o ↑).
+2. Plataformas sólidas; caer al vacío cuesta una vida.
+3. Drones que patrullan; su contacto cuesta una vida.
+4. Disparo de pulsos (Espacio) que desactivan drones.
+5. Cristales coleccionables; al reunirlos todos se abre la salida.
+6. Escudo temporal que absorbe un golpe.
+7. Temporizador por nivel y tres vidas.
+8. Pausa (P) y silencio (M).
+
+## 8. Criterios de éxito
+
+| Criterio | Estado al 11/11/2026 |
+| --- | --- |
+| El juego abre en un navegador actual sin instalación | Cumplido (Chromium y Safari/WebKit) |
+| Moverse, saltar y disparar funcionan | Cumplido (prueba E2E) |
+| Los 3 niveles se pueden completar con controles normales | Cumplido (partida E2E solo con teclado) |
+| Colecciones, impactos, escudo, victoria y derrota se detectan | Cumplido (prueba E2E) |
+| La puntuación coincide con la fórmula y no duplica eventos | Cumplido (pruebas unitarias y E2E) |
+| El sonido puede activarse y desactivarse | Cumplido (tecla M y botón) |
+| Juego publicado y verificado en GitHub Pages | Cumplido (HTTP 200 y E2E contra la URL pública) |
+| Documentación (README, GDD, técnico) y tablero | Cumplido; faltan integrantes y fotos reales |
+| Video explicativo | Pendiente: lo graba el autor |
+
+## 9. Enlaces
+
+- Juego: <https://ramonibr.github.io/pulso-ultima-energia/>
+- Repositorio: <https://github.com/ramonibr/pulso-ultima-energia>
+- Tablero: <https://github.com/users/ramonibr/projects/9>
+- GDD: [GDD.md](GDD.md) · Documento técnico: [DOCUMENTO_TECNICO.md](DOCUMENTO_TECNICO.md)

@@ -1,83 +1,106 @@
-# Portafolio de evidencias — Requerimientos técnicos
+# Documento técnico — PULSO: Última Energía
 
-**Caso práctico:** Desarrollo de *PULSO: Última Energía*, juego 2D para navegador con animación ligera y efectos de sonido.  
-**Tipo de documento:** Portafolio técnico con implementación de referencia; no constituye medición de rendimiento en hardware diverso.  
-**Fecha:** 11 de noviembre de 2026.
+**Autor:** José Ramón Ibarra · **Fecha:** 11 de noviembre de 2026
+**Repositorio:** <https://github.com/ramonibr/pulso-ultima-energia> · **Juego:** <https://ramonibr.github.io/pulso-ultima-energia/>
 
-## 1. Objetivo técnico
+Este documento distingue dos cosas:
 
-Justificar el hardware y software que el equipo utilizará para planificar, diseñar, programar, animar, probar y publicar un videojuego web indie de bajo consumo.
+- **Requisito del proyecto:** lo que el juego o su desarrollo necesitan para funcionar, derivado del código o de documentación oficial.
+- **Recomendación de desarrollo:** lo que el autor propone para trabajar con comodidad. No proviene de una medición de rendimiento.
 
-## 2. Hardware propuesto para desarrollo
+## 1. Requisitos para jugar (requisito del proyecto)
 
-| Componente | Base recomendada por el proyecto | Deseable |
-|---|---|---|
-| Procesador | CPU moderna de 2 núcleos | 4 o más núcleos |
-| Memoria RAM | 8 GB | 16 GB |
-| Almacenamiento libre | 2 GB para editor, recursos y copias | SSD con 10 GB libres |
-| Gráficos | Integrados, con soporte de navegador 2D | Integrados modernos o GPU dedicada opcional |
-| Pantalla | 1366 × 768 o superior | 1920 × 1080 |
-| Entrada | Teclado y ratón | Controlador opcional a futuro |
-| Internet | Conexión para GitHub y publicación | Conexión estable para colaboración |
+| Componente | Requisito mínimo | Recomendado |
+| --- | --- | --- |
+| Navegador | Chrome/Edge 98+, Safari 15.4+ o Firefox 94+ (el código usa módulos ES, Canvas 2D, Web Audio y `structuredClone`, disponible desde esas versiones según MDN) | Última versión de Chrome, Edge, Safari o Firefox |
+| Procesador | Cualquier CPU capaz de ejecutar esos navegadores | Doble núcleo o superior |
+| RAM | La que exija el navegador (la página descarga ~1,8 MB, casi todo la imagen de portada) | 4 GB o más |
+| Almacenamiento | Ninguno (se juega en línea) | — |
+| Gráficos | Soporte de Canvas 2D (integrados) | Pantalla de 1280 × 720 o mayor |
+| Entrada | Teclado, o pantalla táctil | Teclado |
+| Audio | Opcional | Altavoces o audífonos |
+| Red | Conexión para descargar la página una vez | — |
 
-**Aclaración:** son especificaciones **propuestas por el equipo** como margen práctico, no requisitos mínimos oficiales ni producto de una prueba de benchmarking. Visual Studio Code documenta un requerimiento propio mucho menor (CPU 1.6 GHz y 1 GB RAM), pero al desarrollar se ejecutarán también navegador, editor de imágenes y herramientas de Git; por eso se plantea 8 GB como base de trabajo.
+## 2. Hardware para desarrollo
 
-## 3. Hardware del jugador (objetivo de compatibilidad, no verificado)
+| Componente | Mínimo (referencia oficial) | Recomendación de desarrollo |
+| --- | --- | --- |
+| Procesador | 1,6 GHz (requisito de VS Code) | 4 núcleos, 2 GHz o más |
+| RAM | 1 GB (requisito de VS Code) | 8 GB; 16 GB si se usan editor, navegador, editor de imágenes y pruebas a la vez |
+| Almacenamiento | ~500 MB para VS Code, Git y Node.js | SSD con 10 GB libres (incluye navegadores de Playwright, ~300 MB) |
+| Gráficos | Integrados | Integrados modernos; GPU dedicada no necesaria |
+| Pantalla | 1366 × 768 | 1920 × 1080 para ver código y juego lado a lado |
+| Sistema operativo | macOS, Windows o Linux compatibles con VS Code y Node.js | — |
 
-Computadora de escritorio o laptop con navegador compatible con Canvas 2D, teclado, audio y una pantalla mínima objetivo de 1280 × 720. No se publicarán requisitos garantizados de FPS o consumo hasta medir el prototipo en equipos reales.
+El mínimo de VS Code proviene de su documentación oficial; las recomendaciones son propuestas del autor porque durante el desarrollo se ejecutan varias herramientas simultáneamente.
 
-## 4. Herramientas y usos
+## 3. Herramientas
 
-| Herramienta | Uso | ¿Obligatoria? |
-|---|---|---|
-| HTML5 | Estructura del documento y canvas | Sí |
-| CSS3 | HUD y presentación | Sí |
-| JavaScript | Estado, eventos, física y reglas | Sí |
-| Canvas 2D | Dibujo de escenas, sprites y animaciones | Sí |
-| Web Audio API | Tonos y efectos de audio sintetizados | Sí para SFX planeados |
-| VS Code | Editor de código | Recomendada, sustituible |
-| Git | Historial y revisión de cambios | Sí para flujo propuesto |
-| GitHub | Repositorio, Issues, revisión y tablero | Sí para entrega |
-| GitHub Pages | Publicación estática del juego | Sí en implementación final |
-| Piskel o editor de imagen | Sprites y pixel art | Opcional; sustituible |
-| Draw.io o herramienta de dibujo | Mapas, flujos y storyboard | Opcional |
-| Navegador con DevTools | Depuración de lógica, animación y rendimiento | Sí |
+| Herramienta | Uso | Tipo |
+| --- | --- | --- |
+| **Visual Studio Code** | Editor de código | Recomendado (sustituible por cualquier editor) |
+| **Git** | Control de versiones | Requisito del proyecto |
+| **GitHub** | Repositorio público, Issues, tablero Kanban | Requisito de la entrega |
+| **GitHub Pages** | Publicación estática desde `main` / `(root)` | Requisito de la entrega |
+| **GitHub CLI (`gh`)** | Crear repositorio, Issues y tablero desde terminal | Recomendado |
+| **Node.js 18+** | Ejecutar `npm run check`, `npm test` y Playwright | Requisito solo para pruebas |
+| **Playwright** | Pruebas en Chromium y WebKit (motor de Safari) | Requisito solo para pruebas E2E |
+| **Python 3** | Servidor local `python3 -m http.server 8080` | Recomendado (cualquier servidor estático sirve) |
+| **Piskel** o **Aseprite** | Pixel art y animación por fotogramas (sprites) | Recomendado para arte futuro; el juego actual dibuja por código |
+| **Canvas 2D** | Animación procedural (flotación de drones, brillo del reactor, parpadeo de invulnerabilidad) | Requisito del proyecto |
+| **Herramienta de dibujo** (draw.io, Figma u otra) | Mapas de nivel y storyboard | Recomendado |
 
-No se requiere motor 3D, backend, MySQL ni servidor dedicado para el alcance básico.
+### Navegadores para pruebas
 
-## 5. Arquitectura implementada
+- **Chromium** (Chrome/Edge) y **WebKit** (Safari): automatizados con Playwright en cada corrida.
+- **Safari en iPhone / Chrome en Android:** recomendado para comprobar controles táctiles en un dispositivo físico.
+- **Firefox:** recomendado para una partida manual adicional.
 
-`index.html` carga interfaz, `styles.css` y los módulos JavaScript `src/game.js`, `src/levels.js`, `src/scoring.js` y `src/audio.js`. Un bucle basado en `requestAnimationFrame` calcula delta de tiempo, actualiza la física, detecta colisiones, procesa eventos y renderiza en `canvas`. `AudioContext` produce SFX bajo interacción del usuario. Se conservarán los controles por teclado y un botón visible de silencio.
+## 4. Arquitectura de software
 
-## 6. Animación
+```text
+index.html ──carga──> styles.css
+           └─módulo─> src/game.js ──importa──> src/levels.js   (datos de niveles)
+                                   ├─────────> src/scoring.js  (eventos y fórmula)
+                                   └─────────> src/audio.js    (Web Audio)
+```
 
-Un sprite puede representarse mediante recuadros y fotogramas cortos; se usan formas de Canvas en un estilo pixel art minimalista para representar reposo, movimiento, salto, disparo y daño. Uso de `requestAnimationFrame` con el tiempo transcurrido para evitar diferencias de velocidad entre pantallas de distinta tasa de refresco. El arte se optimizará a resoluciones pequeñas.
+| Módulo | Responsabilidad |
+| --- | --- |
+| `src/game.js` | Clase `PulseGame`: entrada (teclado, botones táctiles con Pointer Events), bucle `requestAnimationFrame` con delta de tiempo limitado a 34 ms, física (gravedad 1700 px/s², salto −645 px/s, velocidad 270 px/s), colisiones AABB, máquina de estados (`menu`, `playing`, `paused`, `level-clear`, `won`, `lost`), HUD y dibujo en Canvas |
+| `src/levels.js` | Datos declarativos de cada nivel (plataformas, cristales, drones, peligros, escudo, salida, tiempo) y `validateLevels()` |
+| `src/scoring.js` | `createScore()`, `applyScoreEvent()` (ignora identificadores repetidos) y `calculateScore()` con la fórmula oficial |
+| `src/audio.js` | `AudioEngine`: crea `AudioContext` tras el primer gesto del usuario, osciladores para efectos y melodía por nivel, silencio |
 
-## 7. Calidad y verificación
+**Decisiones técnicas:** sin dependencias en tiempo de ejecución (carga rápida, nada que pueda fallar en un CDN); niveles como datos para modificar el diseño sin tocar la lógica; puntuación separada de la lógica para probarla de forma aislada; rutas relativas compatibles con GitHub Pages; archivo `.nojekyll` para servir los archivos tal cual.
 
-- Verificar movimiento, saltos y plataformas sin atravesar el suelo.
-- Validar cada evento de score y evitar doble contabilización.
-- Verificar cambio entre inicio, partida, pausa, victoria y derrota.
-- Comprobar que la música/SFX no se activen antes del gesto del usuario.
-- Revisar rendimiento con DevTools y dispositivos disponibles.
-- Revisar que los archivos se publiquen por rutas relativas compatibles con GitHub Pages.
-- Confirmar la URL pública y registrar fecha/capturas de la prueba.
+## 5. Tecnologías utilizadas
 
-## 8. Gestión de trabajo
+HTML5, CSS3 (variables, grid, media queries), JavaScript moderno (ES2020+) en módulos, Canvas 2D, `requestAnimationFrame`, Web Audio API (`OscillatorNode`, `GainNode`), Pointer Events, `structuredClone`, Node.js `node:test`, Playwright, Git y GitHub (Pages, Issues, Projects).
 
-Issues separados para documentación, arte, lógica, niveles, sonido, pruebas y despliegue. Estados sugeridos: Pendiente, En curso, En revisión y Terminado. Cada tarjeta debe conservar responsable real, entregable y criterio de aceptación.
+## 6. Estrategia de pruebas
 
-## 9. Fuentes oficiales consultadas
+| Nivel | Herramienta | Cobertura |
+| --- | --- | --- |
+| Sintaxis | `npm run check` (`node --check`) | Todos los módulos y pruebas |
+| Unitarias | `npm test` (`node:test`) | Datos de niveles, fórmula, anti-duplicados, no negativos, eventos inválidos |
+| E2E | `npm run test:e2e` (Playwright, Chromium + WebKit) | Carga sin errores, partida completa de los 3 niveles solo con teclado, movimiento, salto, disparo, cristal único, escudo, vidas, pausa, silencio, derrota por tiempo y por vidas, móvil 390 px |
+| Producción | `PULSO_URL=https://ramonibr.github.io/pulso-ultima-energia/ npm run test:e2e` | La misma suite contra GitHub Pages |
+| Manual | Autor | Escucha del audio y prueba en teléfono físico |
 
-1. Microsoft — Requisitos de VS Code: https://code.visualstudio.com/docs/supporting/requirements
-2. MDN — Canvas API: https://developer.mozilla.org/es/docs/Web/API/Canvas_API
-3. MDN — requestAnimationFrame: https://developer.mozilla.org/en-US/docs/Web/API/Window/requestAnimationFrame
-4. MDN — Web Audio API: https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API
-5. GitHub — GitHub Pages: https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site
-6. GitHub — GitHub Projects: https://docs.github.com/en/issues/planning-and-tracking-with-projects
+En las pruebas E2E el reloj del navegador se controla con `page.clock`, lo que hace la partida determinista; un bot lee el estado del juego y responde solo con eventos de teclado, sin modificar posiciones (no hay teletransporte). Resultados: [EVIDENCIAS_QA.md](EVIDENCIAS_QA.md).
 
-## 10. Evidencia técnica local y límites
+## 7. Fuentes técnicas oficiales
 
-`npm run check` completó sin errores de sintaxis. `npm test` ejecutó cinco pruebas de nivel y puntuación con resultado satisfactorio. Se inspeccionaron menú, inicio y pausa con Chromium mediante una variante de QA que unifica módulos en memoria, sin errores de página; se incluyen capturas. No se ha verificado todavía la URL final de GitHub Pages ni pruebas de rendimiento real o un recorrido completo de los tres niveles. No se deben declarar esas verificaciones como aprobadas hasta ejecutarlas.
-
-**Rutas del código:** `index.html`, `styles.css`, `src/game.js`, `src/levels.js`, `src/audio.js`, `src/scoring.js`; **pruebas:** `tests/game.test.js`.
+1. Visual Studio Code — Requirements: <https://code.visualstudio.com/docs/supporting/requirements>
+2. MDN — Canvas API: <https://developer.mozilla.org/es/docs/Web/API/Canvas_API>
+3. MDN — `requestAnimationFrame`: <https://developer.mozilla.org/en-US/docs/Web/API/Window/requestAnimationFrame>
+4. MDN — Web Audio API: <https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API>
+5. MDN — `structuredClone` (compatibilidad de navegadores): <https://developer.mozilla.org/en-US/docs/Web/API/Window/structuredClone>
+6. MDN — Módulos JavaScript: <https://developer.mozilla.org/es/docs/Web/JavaScript/Guide/Modules>
+7. Node.js — Test runner: <https://nodejs.org/api/test.html>
+8. Playwright — Documentación y Clock API: <https://playwright.dev/docs/intro> · <https://playwright.dev/docs/clock>
+9. Git — Documentación: <https://git-scm.com/doc>
+10. GitHub Pages — Configurar la fuente de publicación: <https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site>
+11. GitHub Projects: <https://docs.github.com/en/issues/planning-and-tracking-with-projects>
+12. Piskel: <https://www.piskelapp.com/> · Aseprite: <https://www.aseprite.org/>

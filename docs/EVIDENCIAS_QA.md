@@ -1,42 +1,69 @@
-# Evidencias técnicas y pruebas — 11 de noviembre de 2026
+# Evidencias de QA — 11 de noviembre de 2026
 
-## Verificación ejecutada en entorno local
+Pruebas ejecutadas en macOS con Node.js 25.9 y Playwright 1.65 (Chromium y WebKit/Safari). Todas las pruebas de navegador sirven el juego por HTTP.
 
-| Prueba | Evidencia | Resultado |
+## 1. Pruebas unitarias y de sintaxis
+
+| Comando | Qué valida | Resultado |
 | --- | --- | --- |
-| Sintaxis de módulos JavaScript | `npm run check` | PASS |
-| Tres niveles y progresión 3/4/5 cristales | `npm test` | PASS |
-| Fórmula de puntos | `npm test` | PASS |
-| Protección frente a eventos repetidos | `npm test` | PASS |
-| Score no negativo | `npm test` | PASS |
-| Rechazo de evento inválido | `npm test` | PASS |
-| Render de pantalla inicial | Chromium, HTML/CSS y módulos cargados en memoria desde las mismas fuentes | PASS |
-| Iniciar partida y avanzar reloj | Chromium, mismo método | PASS |
-| Pausar y reanudar | Chromium, mismo método | PASS |
-| Errores JavaScript al iniciar y pausar | Chromium | 0 errores de página |
+| `npm run check` | Sintaxis de `src/*.js` y `tests/e2e/*.js` | PASS |
+| `npm test` | 3 niveles con 3/4/5 cristales, 2/3/4 drones, 90/80/70 s | PASS |
+| `npm test` | Fórmula: 100+50+200+2·43−25 con 43,9 s → 411 | PASS |
+| `npm test` | Evento repetido no se cuenta dos veces | PASS |
+| `npm test` | Puntuación nunca negativa | PASS |
+| `npm test` | Eventos inválidos se ignoran | PASS |
 
-## Capturas de la interfaz
+## 2. Pruebas E2E en navegador (`npm run test:e2e`)
 
-![Menú de inicio](qa-menu.png)
+El reloj del navegador se controla con `page.clock` (avanza `requestAnimationFrame` en pasos de 16 ms) para obtener partidas reproducibles. Toda la entrada es **teclado o puntero reales**; el estado del juego (`window.pulso_game`) solo se **lee**.
 
-![Partida en ejecución](qa-game.png)
+| # | Prueba | Chromium | WebKit |
+| --- | --- | --- | --- |
+| 1 | Carga sin errores JS ni recursos 4xx; pantalla de inicio | PASS | PASS |
+| 2 | **Partida completa de los 3 niveles solo con teclado** (12 cristales, 9 drones, victoria) | PASS | PASS |
+| 3 | Movimiento (D, ←), salto con gravedad, aterrizaje, disparo, cristal contado una vez, HUD 150 pts | PASS | PASS |
+| 4 | Escudo absorbe caída (3 vidas, 0 impactos); siguiente caída: 2 vidas, −25 pts | PASS | PASS |
+| 5 | Pausa con P congela el temporizador 5 s; reanudar; M alterna silencio | PASS | PASS |
+| 6 | Derrota por tiempo (91 s) y reintento con 3 vidas | PASS | PASS |
+| 7 | Derrota por perder 3 vidas | PASS | PASS |
+| 8 | Móvil 390×844: controles táctiles visibles, sin scroll horizontal, ◀▶ y Saltar funcionan | PASS | PASS |
 
-## Pruebas restantes antes de la entrega final
+Total: **16/16 PASS** en local, repetido en varias corridas con resultado idéntico: victoria con **2672 puntos** = 100·12 + 50·9 + 200·3 + 2·211 − 25·0 (3 vidas, 0 impactos, 211 segundos de bono).
 
-- [ ] Abrir desde un servidor HTTP local y completar manualmente los tres sectores sin herramientas de QA.
-- [ ] Revisar salto, disparo, impacto y escudo en teclado real.
-- [ ] Probar en teléfono o vista táctil y verificar la posición de controles.
-- [ ] Crear o verificar el repositorio público real.
-- [ ] Configurar GitHub Pages, abrir la URL pública y confirmar HTTP 200 y recursos correctos.
-- [ ] Grabar video explicativo con voz del alumno mostrando código, controles y puntuación.
-- [ ] Agregar fotografías autorizadas e integrantes reales a la portada.
+### Cómo se juega la partida automática (sin teletransporte)
 
-**Nota:** estas pruebas no acreditan todavía la publicación pública ni la jugabilidad completa sin fallos; se deben completar y documentar esos puntos antes de marcarlos como terminados.
+`tests/e2e/bot.js` define una ruta por nivel con acciones de jugador: `walk_to(x)` mantiene A/D, `jump_to(x)` pulsa W y dirige en el aire, `face(dir)` gira, y `wait_until(...)` espera (opcionalmente saltando) mientras dispara con Espacio a drones alineados. Ejemplo nivel 1: eliminar dron del suelo → saltar a la plataforma A (cristal 1) → plataforma B (cristal 2) → disparar al dron de la plataforma C → saltar a C (cristal 3) → bajar a la salida.
 
-## Prueba adicional de flujo automatizado de los tres sectores
+## 3. Verificación de GitHub Pages
 
-Se ejecutó una prueba de integración de estados en Chromium instrumentando una copia en memoria de los módulos: recolección de 12 cristales, desactivación de 9 drones, transición 1 → 2 → 3, y pantalla final «¡NÚCLEO RESTAURADO!». El score reportado fue **2724 puntos** en esa ejecución sintética (incluye bonificaciones por tiempo). Esta prueba **inyecta posiciones de juego directamente**, por lo tanto **no reemplaza una partida manual ni demuestra por sí sola que todos los saltos sean alcanzables**.
+URL: <https://ramonibr.github.io/pulso-ultima-energia/> (fuente `main`, `/(root)`).
 
-Se verificó también que los controles táctiles aparezcan en vista de 390 px. Captura:
+| Recurso | HTTP |
+| --- | --- |
+| `/` e `index.html` | 200 |
+| `styles.css` | 200 |
+| `src/game.js`, `src/levels.js`, `src/scoring.js`, `src/audio.js` | 200 |
+| `assets/splash.png`, `assets/favicon.svg` | 200 |
 
-![Vista móvil de controles](qa-mobile.png)
+Suite E2E completa ejecutada **contra la URL pública** (`PULSO_URL=… npm run test:e2e`): **16/16 PASS**; la partida automática ganó los 3 niveles en ambos navegadores con 2672 puntos.
+
+## 4. Errores encontrados y corregidos
+
+| Error | Corrección |
+| --- | --- |
+| La tecla **M** no silenciaba (solo el botón) | `toggleSound()` compartido por tecla M y botón |
+| Caer al vacío con escudo activo: el escudo absorbía el golpe pero Axel seguía cayendo fuera de pantalla hasta perder una vida | Tras una caída siempre reaparece en el inicio del sector |
+
+## 5. Capturas reales (generadas con `npm run capturas`)
+
+| Inicio | Nivel 1 | Nivel 2 | Nivel 3 |
+| --- | --- | --- | --- |
+| ![](capturas/inicio.png) | ![](capturas/nivel-1.png) | ![](capturas/nivel-2.png) | ![](capturas/nivel-3.png) |
+| **Pausa** | **Derrota** | **Victoria** | **Móvil** |
+| ![](capturas/pausa.png) | ![](capturas/derrota.png) | ![](capturas/victoria.png) | ![](capturas/movil.png) |
+
+## 6. Límites y pendientes reales
+
+- No se escuchó el audio: se verificó que M y el botón cambian el estado de silencio, no la salida de sonido. Recomendado: escucharlo una vez en Safari/Chrome.
+- Las pruebas táctiles usan un puntero emulado en Chromium/WebKit; no se probó en un teléfono físico.
+- Se recomienda una partida manual del autor antes de grabar el video (sirve también como ensayo).
