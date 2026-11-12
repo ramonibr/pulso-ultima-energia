@@ -1,0 +1,13 @@
+﻿ID,Título,Área,Descripción,Criterio de aceptación,Estado,Responsable
+PRE-01,Definir propuesta y README,Preproducción,"Explicar visión, público, alcance y estado; enlace a GDD",Documentación visible y revisada,Pendiente,Por asignar
+PRE-02,Completar GDD con portada e integrantes,Preproducción,Incluir fotografías autorizadas y datos reales del equipo,"Nombres y fotos completos, sin placeholders",Pendiente,Por asignar
+ART-01,Diseñar personaje y sprites,Arte,"Sprite de Axel: quieto, caminar, salto, daño",Personaje distinguible y sprites aprobados,Pendiente,Por asignar
+ART-02,"Diseñar plataformas, drones y cristales",Arte,Sprites y backgrounds del nivel 1,Recursos legibles a 960x540,Pendiente,Por asignar
+GAME-01,Implementar movimiento y salto,Programación,"Teclado y gravedad, plataformas sólidas",Corre y salta sin atravesar suelo,Pendiente,Por asignar
+GAME-02,Implementar disparo y enemigos,Programación,"Pulso, patrulla y detección de impactos",Dron se desactiva una vez por impacto válido,Pendiente,Por asignar
+GAME-03,"Implementar cristales, vidas y score",Programación,"Colección única, daño, escudo, HUD, fórmula",Score coincide con pruebas de eventos,Pendiente,Por asignar
+GAME-04,Construir nivel 1 y estados del juego,Programación,"Mapa, tiempo, inicio, pausa, salida y game over",Nivel 1 se puede completar y reiniciar,Pendiente,Por asignar
+AUDIO-01,Crear y conectar efectos de sonido,Audio,SFX generados y botón de silencio,Suena sólo tras interacción y respeta mute,Pendiente,Por asignar
+QA-01,Ejecutar pruebas funcionales,Calidad,"Checklist de controles, score, estados, audio",Casos críticos probados y documentados,Pendiente,Por asignar
+DEP-01,Publicar y probar GitHub Pages,Entrega,Activar Pages y probar URL desde otra sesión,Juego accesible por URL pública verificada,Pendiente,Por asignar
+VID-01,Grabar video explicativo,Entrega,Demostración y funciones de JavaScript,"Video breve con controles, lógica y score",Pendiente,Por asignar
