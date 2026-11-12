@@ -82,7 +82,7 @@ src/scoring.js          Eventos únicos y fórmula de puntuación
 src/audio.js            Música y efectos sintetizados con Web Audio API
 tests/game.test.js      Pruebas unitarias (node:test)
 tests/e2e/              Pruebas en navegador (Playwright) y bot que juega con teclado
-docs/                   Propuesta, GDD, documento técnico, guion, evidencias y capturas
+docs/                   Propuesta, GDD, documento técnico, evidencias y capturas
 assets/                 Splash, storyboard, mapa del nivel 1 y favicon
 ```
 
@@ -128,7 +128,6 @@ La prueba E2E principal juega los tres niveles **usando solo eventos de teclado*
 - [Documento técnico](docs/DOCUMENTO_TECNICO.md) · [Word](docs/DOCUMENTO_TECNICO.docx)
 - [Evidencias de QA](docs/EVIDENCIAS_QA.md)
 - [Tarjetas de GitHub](docs/TARJETAS_GITHUB.md)
-- [Guion del video explicativo](docs/GUION_VIDEO.md)
 
 ## Créditos
 

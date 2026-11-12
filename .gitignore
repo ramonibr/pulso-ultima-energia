@@ -14,3 +14,5 @@ credentials/
 *.bak
 # Instrucciones internas de preparación (no forman parte de la entrega pública)
 *_ENTREGA.md
+# Material de entrega aparte para clase (no se publica)
+docs/GUION_VIDEO.md
